@@ -13,6 +13,7 @@ pub enum Screen {
 }
 
 /// Core application state.
+#[allow(dead_code)]
 pub struct App {
     /// Whether the application should exit.
     pub should_quit: bool,
@@ -77,6 +78,7 @@ impl App {
     }
 
     /// Returns elapsed seconds since the app started.
+    #[allow(dead_code)]
     pub fn elapsed_secs(&self) -> f64 {
         self.start_time.elapsed().as_secs_f64()
     }
