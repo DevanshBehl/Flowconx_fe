@@ -1,161 +1,54 @@
 @import "tailwindcss";
 
-/* ── Theme System ──────────────────────────────────────────────────────────── */
+/* ── Theme Tokens ──────────────────────────────────────────────────────────── */
 
 :root {
-  /* Light theme — clean off-white with black text */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #f0f1f3;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f8f9fa;
+  --bg: #ffffff;
+  --bg-subtle: #fafafa;
+  --bg-muted: #f5f5f5;
+  --bg-elevated: #ffffff;
 
-  --fg-primary: #0a0a0a;
-  --fg-secondary: #4a4a4a;
-  --fg-tertiary: #8a8a8a;
-  --fg-ghost: #c0c0c0;
+  --fg: #0a0a0a;
+  --fg-muted: #525252;
+  --fg-subtle: #a3a3a3;
+  --fg-ghost: #d4d4d4;
 
-  --accent: #2563eb;
-  --accent-dim: #3b82f6;
-  --accent-ghost: rgba(37, 99, 235, 0.08);
+  --accent: #0a0a0a;
+  --accent-fg: #ffffff;
+  --accent-secondary: #3b82f6;
 
-  --border: #e5e7eb;
-  --border-hover: #d1d5db;
+  --border: #e5e5e5;
+  --border-strong: #d4d4d4;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --glow: rgba(59, 130, 246, 0.08);
 }
 
 [data-theme="dark"] {
-  /* Dark theme — absolute black with white text */
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --bg-tertiary: #111111;
-  --bg-card: #0a0a0a;
-  --bg-card-hover: #111111;
+  --bg: #000000;
+  --bg-subtle: #0a0a0a;
+  --bg-muted: #111111;
+  --bg-elevated: #0f0f0f;
 
-  --fg-primary: #ffffff;
-  --fg-secondary: #a0a0a0;
-  --fg-tertiary: #606060;
-  --fg-ghost: #333333;
+  --fg: #fafafa;
+  --fg-muted: #a3a3a3;
+  --fg-subtle: #525252;
+  --fg-ghost: #262626;
 
-  --accent: #638cff;
-  --accent-dim: #4a6fd0;
-  --accent-ghost: rgba(99, 140, 255, 0.08);
+  --accent: #fafafa;
+  --accent-fg: #0a0a0a;
+  --accent-secondary: #638cff;
 
   --border: #1a1a1a;
-  --border-hover: #2a2a2a;
+  --border-strong: #2a2a2a;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --glow: rgba(99, 140, 255, 0.06);
 }
 
-@theme inline {
-  --color-background: var(--bg-primary);
-  --color-foreground: var(--fg-primary);
+@theme {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* ── Base ──────────────────────────────────────────────────────────────────── */
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--bg-primary);
-  color: var(--fg-primary);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-::selection {
-  background: var(--accent);
-  color: #ffffff;
-}
-
-/* ── Transitions ───────────────────────────────────────────────────────────── */
-
-.theme-transition,
-.theme-transition *,
-.theme-transition *::before,
-.theme-transition *::after {
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease, box-shadow 0.3s ease !important;
-}
-
-/* ── Animations ────────────────────────────────────────────────────────────── */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes pulse-subtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-.animate-pulse-subtle {
-  animation: pulse-subtle 3s ease-in-out infinite;
-}
-
-.animate-slide-in-left {
-  animation: slide-in-left 0.4s ease-out forwards;
-}
-
-/* ── Stagger delays ────────────────────────────────────────────────────────── */
-
-.delay-100 { animation-delay: 0.1s; opacity: 0; }
-.delay-200 { animation-delay: 0.2s; opacity: 0; }
-.delay-300 { animation-delay: 0.3s; opacity: 0; }
-.delay-400 { animation-delay: 0.4s; opacity: 0; }
-.delay-500 { animation-delay: 0.5s; opacity: 0; }
-.delay-600 { animation-delay: 0.6s; opacity: 0; }
-.delay-700 { animation-delay: 0.7s; opacity: 0; }
-.delay-800 { animation-delay: 0.8s; opacity: 0; }
+/* ── Reset & Base ──────────────────────────────────────────────────────────── */

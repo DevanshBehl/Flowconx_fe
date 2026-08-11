@@ -1,72 +1,71 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
-interface FeatureCardProps {
-  icon: string;
+/* ── Intersection observer hook ────────────────────────────────────────────── */
+
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
+/* ── Feature Card ──────────────────────────────────────────────────────────── */
+
+interface CardProps {
+  label: string;
   title: string;
   description: string;
   delay: number;
+  visible: boolean;
 }
 
-function FeatureCard({ icon, title, description, delay }: FeatureCardProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
+function Card({ label, title, description, delay, visible }: CardProps) {
   return (
     <div
-      ref={ref}
-      className="p-6 rounded-xl transition-all duration-300"
+      className="group p-6 sm:p-8 rounded-xl transition-all duration-500"
       style={{
-        background: "var(--bg-card)",
+        background: "var(--bg-elevated)",
         border: "1px solid var(--border)",
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(16px)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
         transitionDelay: `${delay}ms`,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "var(--border-hover)";
-        e.currentTarget.style.boxShadow = "var(--shadow-md)";
-        e.currentTarget.style.transform = "translateY(-2px)";
+        e.currentTarget.style.borderColor = "var(--border-strong)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.boxShadow = "none";
-        e.currentTarget.style.transform = "translateY(0)";
       }}
     >
-      <div
-        className="text-lg mb-4 w-9 h-9 rounded-lg flex items-center justify-center"
+      <p
+        className="text-[10px] tracking-[0.12em] uppercase mb-4"
         style={{
-          background: "var(--accent-ghost)",
-          fontSize: "1rem",
+          color: "var(--accent-secondary)",
+          fontFamily: "var(--font-geist-mono)",
         }}
       >
-        {icon}
-      </div>
+        {label}
+      </p>
       <h3
-        className="text-sm font-semibold mb-2"
-        style={{ color: "var(--fg-primary)" }}
+        className="text-[15px] font-semibold mb-2"
+        style={{ color: "var(--fg)", letterSpacing: "-0.01em" }}
       >
         {title}
       </h3>
       <p
-        className="text-sm leading-relaxed"
-        style={{ color: "var(--fg-secondary)" }}
+        className="text-[13px] leading-[1.65]"
+        style={{ color: "var(--fg-muted)" }}
       >
         {description}
       </p>
@@ -74,82 +73,103 @@ function FeatureCard({ icon, title, description, delay }: FeatureCardProps) {
   );
 }
 
-const features = [
+/* ── Features Section ──────────────────────────────────────────────────────── */
+
+const items = [
   {
-    icon: "◆",
-    title: "Flow Classification",
+    label: "Classification",
+    title: "ML-Powered Flow Analysis",
     description:
-      "ML-powered traffic classification identifying applications from raw network flows in real-time.",
+      "Transformer models identify applications from encrypted traffic patterns — no deep packet inspection required.",
   },
   {
-    icon: "◇",
-    title: "Satellite Intelligence",
+    label: "Infrastructure",
+    title: "Satellite-Aware Intelligence",
     description:
-      "Purpose-built for satellite connectivity analysis with orbital-aware traffic profiling.",
+      "Purpose-built for LEO, MEO, and GEO satellite links with orbital-aware latency modeling and handover prediction.",
   },
   {
-    icon: "▲",
-    title: "Real-time Telemetry",
+    label: "Observability",
+    title: "Real-Time Telemetry Pipeline",
     description:
-      "Sub-second observability pipeline delivering flow metrics, anomaly detection, and classification confidence.",
+      "Sub-second flow metrics, classification confidence scores, and anomaly detection streamed to your existing stack.",
   },
   {
-    icon: "○",
-    title: "Transformer Backend",
+    label: "Performance",
+    title: "Edge-Native Architecture",
     description:
-      "State-of-the-art transformer models trained on proprietary network traffic datasets.",
+      "Lightweight Rust agent classifies traffic at line rate on commodity hardware. No GPU required for inference.",
   },
   {
-    icon: "□",
-    title: "Operator Console",
+    label: "Operations",
+    title: "Terminal & Web Interfaces",
     description:
-      "Terminal-native and web interfaces designed for network operations centers and engineering teams.",
+      "Operator-grade terminal UI and web console designed for NOC environments and engineering workflows.",
   },
   {
-    icon: "◈",
-    title: "Edge Deployment",
+    label: "Integration",
+    title: "Open Protocol Support",
     description:
-      "Lightweight agent architecture enabling classification at the network edge with minimal overhead.",
+      "Export to Prometheus, Grafana, Kafka, or any OTLP-compatible backend. First-class gRPC and REST APIs.",
   },
 ];
 
 export function Features() {
+  const { ref, visible } = useInView();
+
   return (
     <section
-      className="py-24 px-6"
-      style={{ background: "var(--bg-secondary)" }}
+      id="features"
+      className="py-28 sm:py-36 px-6"
+      style={{ background: "var(--bg-subtle)" }}
+      ref={ref}
     >
-      <div className="max-w-5xl mx-auto">
-        {/* Section header */}
-        <div className="text-center mb-16">
+      <div className="max-w-[1080px] mx-auto">
+        {/* Header */}
+        <div className="max-w-[480px] mb-16">
           <p
-            className="text-xs tracking-widest mb-4"
+            className="text-[11px] tracking-[0.12em] uppercase mb-3"
             style={{
-              color: "var(--accent)",
+              color: "var(--accent-secondary)",
               fontFamily: "var(--font-geist-mono)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(12px)",
+              transition: "all 0.6s ease",
             }}
           >
-            CAPABILITIES
+            Capabilities
           </p>
           <h2
-            className="text-2xl sm:text-3xl font-bold mb-4"
-            style={{ color: "var(--fg-primary)", letterSpacing: "-0.02em" }}
+            className="text-[clamp(1.5rem,3.5vw,2rem)] font-semibold mb-4"
+            style={{
+              color: "var(--fg)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.2,
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(12px)",
+              transition: "all 0.6s ease 0.05s",
+            }}
           >
-            Built for Network Intelligence
+            Everything you need for network intelligence.
           </h2>
           <p
-            className="text-sm max-w-md mx-auto"
-            style={{ color: "var(--fg-secondary)" }}
+            className="text-[14px] leading-[1.65]"
+            style={{
+              color: "var(--fg-muted)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(12px)",
+              transition: "all 0.6s ease 0.1s",
+            }}
           >
-            Every component is purpose-built for high-throughput network analysis
-            and real-time traffic classification.
+            Each component is purpose-built for high-throughput classification
+            and real-time observability.
           </p>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((feature, i) => (
-            <FeatureCard key={feature.title} {...feature} delay={i * 80} />
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {items.map((item, i) => (
+            <Card key={item.label} {...item} delay={i * 60} visible={visible} />
           ))}
         </div>
       </div>

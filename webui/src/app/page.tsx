@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <>
+    <div className="noise">
       <Header />
       <main className="flex-1">
         <Hero />
@@ -14,6 +14,6 @@ export default function Home() {
         <Architecture />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

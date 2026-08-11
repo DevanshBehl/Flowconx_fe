@@ -44,13 +44,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
     setTimeout(() => {
       document.documentElement.classList.remove("theme-transition");
-    }, 350);
+    }, 450);
   }, []);
 
-  // Prevent flash of wrong theme
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -61,8 +58,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
   return context;
 }
