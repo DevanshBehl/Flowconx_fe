@@ -2,194 +2,129 @@
 
 export function Hero() {
   return (
-    <section
-      className="relative flex items-center justify-center px-6 overflow-hidden"
-      style={{
-        background: "var(--bg)",
-        minHeight: "100vh",
-      }}
+    <section 
+      className="relative flex flex-col items-center justify-start px-6 pt-36 sm:pt-48 pb-20 text-center overflow-hidden" 
+      style={{ background: "var(--bg)", minHeight: "100vh" }}
     >
-      {/* Gradient glow orb */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          width: "800px",
-          height: "600px",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background:
-            "radial-gradient(ellipse at center, var(--glow) 0%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
+      {/* Background glow for elegance */}
+      <div 
+        className="absolute top-0 inset-x-0 h-[600px] pointer-events-none"
+        style={{ 
+          background: "radial-gradient(ellipse at 50% 0%, var(--glow) 0%, transparent 70%)",
+          opacity: 0.8 
+        }} 
       />
 
-      <div className="relative max-w-[680px] mx-auto text-center">
-        {/* Status pill */}
-        <div className="anim-enter d-1 mb-8">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] tracking-[0.08em] uppercase"
-            style={{
-              border: "1px solid var(--border)",
-              color: "var(--fg-subtle)",
-              fontFamily: "var(--font-geist-mono)",
-            }}
-          >
-            <span
-              className="w-[5px] h-[5px] rounded-full"
-              style={{
-                background: "#22c55e",
-                animation: "pulse-dot 2.5s ease-in-out infinite",
-              }}
-            />
-            In Development
-          </div>
-        </div>
+      <div className="relative max-w-[860px] mx-auto z-10 flex flex-col items-center">
+        
+        {/* Sleek Announcement Badge */}
+        <a href="#features" className="anim-fade d-1 inline-flex items-center gap-2.5 px-1 py-1 pr-3 rounded-full mb-8 transition-transform duration-300 hover:scale-[1.02] cursor-pointer no-underline"
+           style={{ background: "var(--bg-subtle)", border: "1px solid var(--border)" }}>
+           <span className="text-[10px] font-semibold tracking-widest uppercase px-2 py-1 rounded-full" style={{ background: "var(--fg)", color: "var(--bg)" }}>
+             New
+           </span>
+           <span className="text-[12.5px] font-medium" style={{ color: "var(--fg-muted)" }}>
+             Introducing FlowConX Core 1.0
+           </span>
+           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: "var(--fg-muted)" }}><path d="M6 12l4-4-4-4"/></svg>
+        </a>
 
-        {/* Main heading */}
-        <h1
-          className="anim-enter d-2"
-          style={{
-            fontSize: "clamp(2.75rem, 7vw, 4.75rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.04em",
-            lineHeight: 1.05,
-            color: "var(--fg)",
-            marginBottom: "1.25rem",
-          }}
-        >
-          Network intelligence,
-          <br />
-          <span style={{ color: "var(--fg-muted)" }}>redefined.</span>
+        {/* Elegant Typography */}
+        <h1 className="anim-enter d-2"
+            style={{
+              fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
+              fontWeight: 500,
+              letterSpacing: "-0.04em",
+              lineHeight: 1.05,
+              color: "var(--fg)",
+              marginBottom: "1.5rem"
+            }}>
+          Network intelligence, <br className="hidden sm:block" />
+          <span style={{ color: "var(--fg-subtle)" }}>without compromise.</span>
         </h1>
 
-        {/* Subtitle */}
-        <p
-          className="anim-enter d-3"
-          style={{
-            fontSize: "1.05rem",
-            lineHeight: 1.65,
-            color: "var(--fg-muted)",
-            maxWidth: "440px",
-            margin: "0 auto",
-            marginBottom: "2.5rem",
-          }}
-        >
-          FlowConX classifies network traffic in real-time using
-          transformer-powered ML — purpose-built for satellite
-          and terrestrial infrastructure.
+        <p className="anim-enter d-3"
+           style={{
+             fontSize: "clamp(1rem, 2vw, 1.25rem)",
+             lineHeight: 1.6,
+             color: "var(--fg-muted)",
+             maxWidth: "580px",
+             marginBottom: "3rem"
+           }}>
+          Unprecedented visibility into your network traffic. Real-time machine learning classification built for modern satellite and terrestrial infrastructure.
         </p>
 
-        {/* CTAs */}
-        <div className="anim-enter d-4 flex items-center justify-center gap-3">
-          <a
-            href="#early-access"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[13px] font-medium no-underline transition-all duration-200"
-            style={{
-              background: "var(--accent)",
-              color: "var(--accent-fg)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = "0.85";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = "1";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            Request Early Access
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
+        {/* Premium CTAs */}
+        <div className="anim-enter d-4 flex flex-col sm:flex-row items-center gap-4">
+          <a href="#early-access" className="px-7 py-3.5 rounded-full text-[14px] font-medium transition-all duration-200 cursor-pointer no-underline"
+                  style={{ background: "var(--fg)", color: "var(--bg)", boxShadow: "0 4px 14px var(--glow)" }}
+                  onMouseEnter={e => e.currentTarget.style.transform = "translateY(-1px)"}
+                  onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}>
+            Start building
           </a>
-          <a
-            href="#features"
-            className="inline-flex items-center px-5 py-2.5 rounded-lg text-[13px] font-medium no-underline transition-all duration-200"
-            style={{
-              color: "var(--fg-muted)",
-              border: "1px solid var(--border)",
-              background: "transparent",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--border-strong)";
-              e.currentTarget.style.color = "var(--fg)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.color = "var(--fg-muted)";
-            }}
-          >
-            Learn More
+          <a href="#architecture" className="px-7 py-3.5 rounded-full text-[14px] font-medium transition-colors duration-200 cursor-pointer flex items-center gap-2 no-underline"
+                  style={{ background: "transparent", color: "var(--fg)", border: "1px solid var(--border)" }}
+                  onMouseEnter={e => e.currentTarget.style.background = "var(--bg-muted)"}
+                  onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            View on GitHub
           </a>
         </div>
-
-        {/* Terminal preview */}
-        <div className="anim-enter d-6 mt-16">
-          <div
-            className="rounded-xl overflow-hidden text-left"
-            style={{
-              border: "1px solid var(--border)",
-              background: "var(--bg-elevated)",
-            }}
-          >
-            {/* Title bar */}
-            <div
-              className="flex items-center gap-2 px-4 py-3"
-              style={{ borderBottom: "1px solid var(--border)" }}
-            >
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#ef4444", opacity: 0.7 }} />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#eab308", opacity: 0.7 }} />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#22c55e", opacity: 0.7 }} />
-              </div>
-              <span
-                className="text-[11px] ml-2"
-                style={{ color: "var(--fg-subtle)", fontFamily: "var(--font-geist-mono)" }}
-              >
-                flowconx — terminal
-              </span>
-            </div>
-
-            {/* Terminal body */}
-            <div
-              className="px-5 py-5"
-              style={{
-                fontFamily: "var(--font-geist-mono)",
-                fontSize: "12.5px",
-                lineHeight: 1.8,
-              }}
-            >
-              <div style={{ color: "var(--fg-subtle)" }}>
-                <span style={{ color: "var(--fg-muted)" }}>$</span> flowconx start
-              </div>
-              <div className="mt-1" style={{ color: "var(--fg-subtle)" }}>
-                <span style={{ color: "#22c55e" }}>✓</span> Core initialized
-              </div>
-              <div style={{ color: "var(--fg-subtle)" }}>
-                <span style={{ color: "#22c55e" }}>✓</span> Classification engine loaded
-              </div>
-              <div style={{ color: "var(--fg-subtle)" }}>
-                <span style={{ color: "#22c55e" }}>✓</span> Transformer models ready
-              </div>
-              <div style={{ color: "var(--fg-subtle)" }}>
-                <span style={{ color: "#22c55e" }}>✓</span> Telemetry pipeline active
-              </div>
-              <div className="mt-2" style={{ color: "var(--fg-muted)" }}>
-                FlowConX v0.1.0 — listening on :8080
-              </div>
-              <div className="flex items-center mt-1">
-                <span style={{ color: "var(--accent-secondary)" }}>❯</span>
-                <span
-                  className="ml-1.5 w-[7px] h-[14px] inline-block"
-                  style={{
-                    background: "var(--fg-muted)",
-                    animation: "cursor-blink 1.2s step-end infinite",
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+      </div>
+      
+      {/* 3D Dashboard Preview Abstraction */}
+      <div 
+        className="relative w-full max-w-[1000px] mx-auto mt-24 anim-enter d-6 z-0"
+        style={{ perspective: "1000px" }}
+      >
+        <div 
+          className="relative w-full aspect-[2/1] rounded-t-2xl overflow-hidden border-t border-l border-r"
+          style={{ 
+            borderColor: "var(--border)",
+            background: "var(--bg-elevated)",
+            boxShadow: "0 -20px 40px -20px var(--glow)",
+            transform: "rotateX(8deg) scale(0.95)",
+            transformOrigin: "bottom center"
+          }}
+        >
+             {/* Abstract Dashboard Header */}
+             <div className="h-12 border-b flex items-center px-5 gap-5" style={{ borderColor: "var(--border)" }}>
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full" style={{ background: "var(--border-strong)" }} />
+                  <div className="w-3 h-3 rounded-full" style={{ background: "var(--border-strong)" }} />
+                  <div className="w-3 h-3 rounded-full" style={{ background: "var(--border-strong)" }} />
+                </div>
+                <div className="h-5 w-64 rounded-md" style={{ background: "var(--bg-muted)" }} />
+             </div>
+             
+             {/* Abstract Dashboard Content */}
+             <div className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-6 h-full">
+                <div className="col-span-2 flex flex-col gap-6">
+                  <div className="h-32 rounded-xl border flex items-end p-4" style={{ borderColor: "var(--border)", background: "var(--bg-muted)" }}>
+                     <div className="flex gap-2 h-1/2 w-full items-end">
+                       {[40, 70, 30, 80, 50, 90, 60, 100].map((h, i) => (
+                         <div key={i} className="flex-1 rounded-t-sm" style={{ height: `${h}%`, background: "var(--fg-subtle)", opacity: 0.2 }} />
+                       ))}
+                     </div>
+                  </div>
+                  <div className="flex-1 rounded-xl border flex flex-col gap-3 p-4" style={{ borderColor: "var(--border)", background: "var(--bg-subtle)" }}>
+                    {[1, 2, 3].map(i => (
+                       <div key={i} className="w-full h-8 rounded-md" style={{ background: "var(--bg-muted)" }} />
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-6 hidden sm:flex">
+                  <div className="h-24 rounded-xl border" style={{ borderColor: "var(--border)", background: "var(--bg-subtle)" }} />
+                  <div className="h-24 rounded-xl border" style={{ borderColor: "var(--border)", background: "var(--bg-subtle)" }} />
+                  <div className="flex-1 rounded-xl border" style={{ borderColor: "var(--border)", background: "var(--bg-subtle)" }} />
+                </div>
+             </div>
+             
+             {/* Bottom Fade Mask */}
+             <div 
+               className="absolute inset-x-0 bottom-0 h-48 pointer-events-none"
+               style={{ background: "linear-gradient(to bottom, transparent, var(--bg) 90%)" }} 
+             />
         </div>
       </div>
     </section>
